@@ -21,6 +21,11 @@
   "homepage": "https://github.com/soichih/sca-service-qr#readme",
   "sca": {
     "label": "QR",
+    "resource_query": {
+        "score": {
+            "docker": 100
+        }
+    },
     "bin": {
         "start": "start.sh",
         "status": "status.sh"
