@@ -1,9 +1,16 @@
 #!/usr/bin/bash
 
-docker run --rm \
+
+#create list.txt using all dirctories existing in the input directory
+ls ../input > ../input/list.txt
+
+dockerid=$(docker run --rm \
         -v `pwd`/../input:/input \
         -v `pwd`/output:/output \
-        soichih/odi-quickreduce ./podi_collectcells.py -nonlinearity /input/o20160217T192119.2.11.fits.fz /output/%OBJECT.fits \
-    &
+        iusca/dockqr ./podi_multicollect.py -fromfile=/input/list.txt -formatout=/output/%OBSID.fits -nonlinearity \
+    &)
 
-echo "{\"hello\":\"there\"}" > products.json
+echo "started docker container $dockerid"
+echo $dockerid > docker.id
+
+#echo "{\"hello\":\"there\"}" > products.json

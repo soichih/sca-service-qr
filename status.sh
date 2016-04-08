@@ -1,3 +1,5 @@
 #!/usr/bin/bash
 
-exit 1 #finished
+dockerid=`cat docker.id`
+status=`docker inspect $dockerid | underscore select .Status`
+echo $status
