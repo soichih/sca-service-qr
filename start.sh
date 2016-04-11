@@ -6,10 +6,10 @@ ls  ../input | awk '{print "/input/"$1}' > ../input/list.txt
 
 echo $SCA_PROGRESS_URL
 docker run \
-	-e SCA_PROGRESS_URL=$SCA_PROGRESS_URL \
-        -v `pwd`/../input:/input \
-        -v `pwd`/output:/output \
-	-d iusca/dockqr ./podi_multicollect.py -fromfile=/input/list.txt -formatout=/output/%OBSID.fits -nonlinearity \
+    -e SCA_PROGRESS_URL=$SCA_PROGRESS_URL \
+    -v `pwd`/../input:/input \
+    -v `pwd`/output:/output \
+    -d iusca/dockqr ./podi_multicollect.py -fromfile=/input/list.txt -formatout=/output/%OBSID.fits -nonlinearity \
     &
 
 #this should get the docker container id
