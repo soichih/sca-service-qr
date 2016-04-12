@@ -1,6 +1,5 @@
 #!/usr/bin/bash
 
-
 #create list.txt using all dirctories existing in the input directory
 ls  ../input | awk '{print "/input/"$1}' > ../input/list.txt
 
@@ -20,4 +19,5 @@ dockerid=`docker ps -l -q`
 echo "started docker container $dockerid"
 echo $dockerid > docker.id
 
-#echo "{\"hello\":\"there\"}" > products.json
+#TODO - podi_multicollect.py (or the wrapper of it) needs to do this
+echo "{\"hello\":\"there\"}" > products.json
