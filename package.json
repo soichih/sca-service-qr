@@ -7,7 +7,9 @@
     "test": "test"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "start.sh",
+    "status": "status.sh"
   },
   "repository": {
     "type": "git",
@@ -18,17 +20,5 @@
   "bugs": {
     "url": "https://github.com/soichih/sca-service-qr/issues"
   },
-  "homepage": "https://github.com/soichih/sca-service-qr#readme",
-  "sca": {
-    "label": "QR",
-    "resource_query": {
-        "score": {
-            "docker": 100
-        }
-    },
-    "bin": {
-        "start": "start.sh",
-        "status": "status.sh"
-    }
-  }
+  "homepage": "https://github.com/soichih/sca-service-qr#readme"
 }

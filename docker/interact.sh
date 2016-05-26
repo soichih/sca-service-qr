@@ -1,4 +1,4 @@
-docker run --name qr-interact -it soichih/odi-quickreduce bash
+docker run --name qr-interact -it iucas/dockqr bash
 
 
 
