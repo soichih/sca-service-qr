@@ -18,10 +18,11 @@ mkdir -p output
 ls  ../$input_task_id/exps | awk '{print "/input/exps/"$1}' > output/exps.txt
 
 echo $SCA_PROGRESS_URL
+pwd=`pwd`
 dockerid=`docker run \
     -e SCA_PROGRESS_URL=$SCA_PROGRESS_URL \
-    -v `pwd`/../$input_task_id:/input \
-    -v `pwd`/output:/output \
+    -v $pwd/../$input_task_id:/input \
+    -v $pwd/output:/output \
     -d iusca/dockqr ./podi_multicollect.py -fromfile=/output/exps.txt -formatout=/output/%OBSID.fits -nonlinearity`
 
 #this should get the docker container id
