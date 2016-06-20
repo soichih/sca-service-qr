@@ -14,7 +14,7 @@ cat ../$input_task_id/products.json
 
 #create list.txt using all dirctories existing in the input directory
 #TODO - I should pull this from products.json.. but right now it doesn't product useful info
-ls  ../$input_task_id/exps | awk '{print "/input/"$1}' > exps.txt
+ls  ../$input_task_id/exps | awk '{print "/input/exps/"$1}' > exps.txt
 
 echo $SCA_PROGRESS_URL
 docker run \
