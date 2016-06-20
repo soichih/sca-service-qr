@@ -13,14 +13,15 @@ echo "dumping products.json"
 cat ../$input_task_id/products.json
 
 #create list.txt using all dirctories existing in the input directory
-ls  ../input | awk '{print "/input/"$1}' > ../input/list.txt
+#TODO - I should pull this from products.json.. but right now it doesn't product useful info
+ls  ../$input_task_id/exps | awk '{print "/input/"$1}' > exps.txt
 
 echo $SCA_PROGRESS_URL
 docker run \
     -e SCA_PROGRESS_URL=$SCA_PROGRESS_URL \
-    -v `pwd`/../input:/input \
+    -v `pwd`/../$input_task_id:/input \
     -v `pwd`/output:/output \
-    -d iusca/dockqr ./podi_multicollect.py -fromfile=/input/list.txt -formatout=/output/%OBSID.fits -nonlinearity \
+    -d iusca/dockqr ./podi_multicollect.py -fromfile=/output/exps.txt -formatout=/output/%OBSID.fits -nonlinearity \
     &
 
 #this should get the docker container id
