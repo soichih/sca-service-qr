@@ -14,16 +14,15 @@ cat ../$input_task_id/products.json
 
 #create list.txt using all dirctories existing in the input directory
 #TODO - I should pull this from products.json.. but right now it doesn't product useful info
-mkdir output
+mkdir -p output
 ls  ../$input_task_id/exps | awk '{print "/input/exps/"$1}' > output/exps.txt
 
 echo $SCA_PROGRESS_URL
-docker run \
+dockerid=`docker run \
     -e SCA_PROGRESS_URL=$SCA_PROGRESS_URL \
     -v `pwd`/../$input_task_id:/input \
     -v `pwd`/output:/output \
-    -d iusca/dockqr ./podi_multicollect.py -fromfile=/output/exps.txt -formatout=/output/%OBSID.fits -nonlinearity \
-    &
+    -d iusca/dockqr ./podi_multicollect.py -fromfile=/output/exps.txt -formatout=/output/%OBSID.fits -nonlinearity`
 
 #this should get the docker container id
 dockerid=`docker ps -l -q`
