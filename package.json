@@ -9,7 +9,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "start.sh",
-    "status": "status.sh"
+    "status": "status.sh",
+    "stop": "stop.sh"
   },
   "repository": {
     "type": "git",
