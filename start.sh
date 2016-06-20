@@ -25,7 +25,7 @@ dockerid=`docker run \
     -d iusca/dockqr ./podi_multicollect.py -fromfile=/output/exps.txt -formatout=/output/%OBSID.fits -nonlinearity`
 
 #this should get the docker container id
-dockerid=`docker ps -l -q`
+#dockerid=`docker ps -l -q`
 
 #-e SCA_PROGRESS_URL="https://soichi7.ppa.iu.edu/api/progress/status/_sca.5707063c4f94be7d71ce1297.570706494f94be7d71ce1298" \
 
