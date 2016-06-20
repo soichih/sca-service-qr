@@ -8,7 +8,7 @@ then
         chmod +x $SCA_SERVICE_DIR/jq
 fi
 
-input_task_id=`$SCA_SERVICE_DIR/jq -r '.input_task_dir' config.json`
+input_task_id=`$SCA_SERVICE_DIR/jq -r '.input_task_id' config.json`
 echo "dumping products.json"
 cat ../$input_task_id/products.json
 
