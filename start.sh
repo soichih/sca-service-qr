@@ -20,27 +20,27 @@ mkdir -p output
 $SCA_SERVICE_DIR/jq -r '.[0] .exps[]' ../$input_task_id/products.json > output/exps.txt
 
 opts=""
-if [ `$SCA_SERVICE_DIR/jq -r '.nonlinear' config.json` -eq "true" ]; then
+if [ `$SCA_SERVICE_DIR/jq -r '.nonlinear' config.json` == "true" ]; then
     opts=$opts+" -nonlinearity"
 fi
-#if [ `$SCA_SERVICE_DIR/jq -r '.persistency' config.json` -eq "true" ]; then
+#if [ `$SCA_SERVICE_DIR/jq -r '.persistency' config.json` == "true" ]; then
 #    opts=$opts+" -persistency=/dir"
 #fi
-#if [ `$SCA_SERVICE_DIR/jq -r '.fringe' config.json` -eq "true" ]; then
+#if [ `$SCA_SERVICE_DIR/jq -r '.fringe' config.json` == "true" ]; then
 #    opts=$opts+" -fringe=/dir"
 #fi
-#if [ `$SCA_SERVICE_DIR/jq -r '.wcs' config.json` -eq "true" ]; then
+#if [ `$SCA_SERVICE_DIR/jq -r '.wcs' config.json` == "true" ]; then
 #    opts=$opts+" -wcs=/dir/file.fits"
 #fi
-#if [ `$SCA_SERVICE_DIR/jq -r '.wcs' config.json` -eq "true" ]; then
+#if [ `$SCA_SERVICE_DIR/jq -r '.wcs' config.json` == "true" ]; then
 #    opts=$opts+" -wcs=/dir/file.fits"
 #fi
-if [ `$SCA_SERVICE_DIR/jq -r '.photo' config.json` -eq "true" ]; then
+if [ `$SCA_SERVICE_DIR/jq -r '.photo' config.json` == "true" ]; then
     opts=$opts+" -photcalib"
 fi
 
 dark=`$SCA_SERVICE_DIR/jq -r '.dark' ../$input_task_id/products.json`
-if [ ! $dark -eq "null" ]; then
+if [ ! $dark == "null" ]; then
     opts=$opts+" --dark=$dark
 fi
 
