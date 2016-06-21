@@ -41,7 +41,7 @@ fi
 
 dark=`$SCA_SERVICE_DIR/jq -r '.dark' ../$input_task_id/products.json`
 if [ ! $dark == "null" ]; then
-    opts=$opts+" --dark=$dark
+    opts=$opts+" --dark=$dark"
 fi
 
 echo "using opts"
