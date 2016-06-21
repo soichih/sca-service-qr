@@ -38,9 +38,18 @@ if [ `$SCA_SERVICE_DIR/jq -r '.photo' config.json` == "true" ]; then
     opts="$opts -photcalib"
 fi
 
+#process calibration input
 dark=`$SCA_SERVICE_DIR/jq -r '.[0] .dark' ../$input_task_id/products.json`
 if [ ! $dark == "null" ]; then
     opts="$opts --dark=/input/$dark"
+fi
+flat=`$SCA_SERVICE_DIR/jq -r '.[0] .flat' ../$input_task_id/products.json`
+if [ ! $flat == "null" ]; then
+    opts="$opts --flat=/input/$flat"
+fi
+bias=`$SCA_SERVICE_DIR/jq -r '.[0] .bias' ../$input_task_id/products.json`
+if [ ! $bias == "null" ]; then
+    opts="$opts --bias=/input/$bias"
 fi
 
 echo "using opts"
