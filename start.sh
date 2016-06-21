@@ -39,7 +39,7 @@ if [ `$SCA_SERVICE_DIR/jq -r '.photo' config.json` == "true" ]; then
     opts="$opts -photcalib"
 fi
 
-dark=`$SCA_SERVICE_DIR/jq -r '.dark' ../$input_task_id/products.json`
+dark=`$SCA_SERVICE_DIR/jq -r '.[0] .dark' ../$input_task_id/products.json`
 if [ ! $dark == "null" ]; then
     opts="$opts --dark=$dark"
 fi
