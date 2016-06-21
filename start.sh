@@ -15,9 +15,8 @@ input_task_id=`$SCA_SERVICE_DIR/jq -r '.input_task_id' config.json`
 mkdir -p output
 
 #create list.txt using all dirctories existing in the input directory
-#TODO - I should pull this from products.json.. but right now it doesn't product useful info
-#ls  ../$input_task_id/exps | awk '{print "/input/exps/"$1}' > output/exps.txt
-$SCA_SERVICE_DIR/jq -r '.[0] .exps[]' ../$input_task_id/products.json > output/exps.txt
+#$SCA_SERVICE_DIR/jq -r '.[0] .exps[]' ../$input_task_id/products.json > output/exps.txt #TODO - I need to prepent /input to each lines
+ls  ../$input_task_id/exps | awk '{print "/input/exps/"$1}' > output/exps.txt
 
 opts=""
 if [ `$SCA_SERVICE_DIR/jq -r '.nonlinear' config.json` == "true" ]; then
