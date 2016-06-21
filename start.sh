@@ -18,7 +18,10 @@ mkdir -p output
 #$SCA_SERVICE_DIR/jq -r '.[0] .exps[]' ../$input_task_id/products.json > output/exps.txt #TODO - I need to prepent /input to each lines
 ls  ../$input_task_id/exps | awk '{print "/input/exps/"$1}' > output/exps.txt
 
+#construct opts for podi_collectcell
+#http://pubsvn.galev.org/podi/trunk/podi_collectcells.py
 opts=""
+
 if [ `$SCA_SERVICE_DIR/jq -r '.nonlinear' config.json` == "true" ]; then
     opts=$opts+" -nonlinearity"
 fi
@@ -69,6 +72,3 @@ dockerid=`docker run \
 
 echo "started docker container $dockerid"
 echo $dockerid > docker.id
-
-#TODO - podi_multicollect.py (or the wrapper of it) needs to do this
-echo "{\"hello\":\"there\"}" > products.json

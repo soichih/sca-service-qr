@@ -12,6 +12,12 @@ case "$status" in
         if [ $exitcode -eq 0 ]; then
             echo "$dockerid finished successfully"
             docker rm $dockerid
+
+            #TODO - podi_multicollect.py (or the wrapper of it) needs to do this
+            #for now, let's just output list of fits images in /output
+            #echo "{\"hello\":\"there\"}" > products.json
+            $SCA_SERVICE_DIR/mock_products.js
+
             exit 1
         else
             echo "$dockerid exited with code:$exitcode"
