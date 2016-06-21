@@ -9,21 +9,50 @@ then
 fi
 
 input_task_id=`$SCA_SERVICE_DIR/jq -r '.input_task_id' config.json`
-echo "dumping products.json"
-cat ../$input_task_id/products.json
+#echo "dumping products.json"
+#cat ../$input_task_id/products.json
+
+mkdir -p output
 
 #create list.txt using all dirctories existing in the input directory
 #TODO - I should pull this from products.json.. but right now it doesn't product useful info
-mkdir -p output
-ls  ../$input_task_id/exps | awk '{print "/input/exps/"$1}' > output/exps.txt
+#ls  ../$input_task_id/exps | awk '{print "/input/exps/"$1}' > output/exps.txt
+$SCA_SERVICE_DIR/jq -r '.[0] .exps[]' ../$input_task_id/products.json > output/exps.txt
 
-echo $SCA_PROGRESS_URL
+opts=""
+if [ `$SCA_SERVICE_DIR/jq -r '.nonlinear' config.json` -eq "true" ]; then
+    opts=$opts+" -nonlinearity"
+fi
+#if [ `$SCA_SERVICE_DIR/jq -r '.persistency' config.json` -eq "true" ]; then
+#    opts=$opts+" -persistency=/dir"
+#fi
+#if [ `$SCA_SERVICE_DIR/jq -r '.fringe' config.json` -eq "true" ]; then
+#    opts=$opts+" -fringe=/dir"
+#fi
+#if [ `$SCA_SERVICE_DIR/jq -r '.wcs' config.json` -eq "true" ]; then
+#    opts=$opts+" -wcs=/dir/file.fits"
+#fi
+#if [ `$SCA_SERVICE_DIR/jq -r '.wcs' config.json` -eq "true" ]; then
+#    opts=$opts+" -wcs=/dir/file.fits"
+#fi
+if [ `$SCA_SERVICE_DIR/jq -r '.photo' config.json` -eq "true" ]; then
+    opts=$opts+" -photcalib"
+fi
+
+dark=`$SCA_SERVICE_DIR/jq -r '.dark' ../$input_task_id/products.json`
+if [ ! $dark -eq "null" ]; then
+    opts=$opts+" --dark=$dark
+fi
+
+echo "using opts"
+echo $opts
+
 pwd=`pwd`
 dockerid=`docker run \
     -e SCA_PROGRESS_URL=$SCA_PROGRESS_URL \
     -v $pwd/../$input_task_id:/input \
     -v $pwd/output:/output \
-    -d iusca/dockqr ./podi_multicollect.py -fromfile=/output/exps.txt -formatout=/output/%OBSID.fits -nonlinearity`
+    -d iusca/dockqr ./podi_multicollect.py -fromfile=/output/exps.txt -formatout=/output/%OBSID.fits $opts`
 
 #this should get the docker container id
 #dockerid=`docker ps -l -q`
